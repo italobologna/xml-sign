@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/italobologna/xml-sign/issues"
   },
-  "homepage": "https://github.com/italobologna/xml-sign#readme"
+  "homepage": "https://github.com/italobologna/xml-sign#readme",
+  "dependencies": {
+    "libxmljs": "^0.19.7"
+  },
+  "devDependencies": {
+    "mocha": "^8.1.3"
+  }
 }
