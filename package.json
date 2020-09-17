@@ -1,0 +1,24 @@
+{
+  "name": "xml-sign",
+  "version": "1.0.0",
+  "description": "Library for signing XML documents.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/italobologna/xml-sign.git"
+  },
+  "keywords": [
+    "xml",
+    "sign",
+    "crypto"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/italobologna/xml-sign/issues"
+  },
+  "homepage": "https://github.com/italobologna/xml-sign#readme"
+}
