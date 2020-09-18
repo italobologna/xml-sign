@@ -22,18 +22,7 @@
         <BizMsgIdr>M0003816612345678901234567890123</BizMsgIdr>
         <MsgDefIdr>pacs.008.spi.1.4</MsgDefIdr>
         <CreDt>2020-01-01T08:30:12.000Z</CreDt>
-        <!-- dadasdad -->
-        <!-- dadasdad -->
-        <!-- dadasdad -->
-        <!-- dadasdad -->
-        <!-- dadasdad -->
-        <!-- dadasdad -->
         <Sgntr/>
-        <!-- dadasdad -->
-        <!-- dadasdad -->
-        <!-- dadasdad -->
-        <!-- dadasdad -->
-        <!-- dadasdad -->
     </AppHdr>
     <Document>
         <FIToFICstmrCdtTrf>
@@ -118,5 +107,3 @@
         </FIToFICstmrCdtTrf>
     </Document>
 </Envelope>
-  <!-- dadasdad -->
-  <!-- dadasdad -->
