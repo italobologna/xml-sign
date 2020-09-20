@@ -1,7 +1,10 @@
 const DOMParser = require('xmldom').DOMParser;
+const createKeyInfo = require("./createkeyinfo");
+const createKeyInfoNode = require("./keyinfo");
+const canonicalizeAndHash = require("./canonicalizeandhash");
 
 module.exports = class SignatureNode {
-  constructor(signatureNameSpaceInfo, canonicalizationMethodInfo,
+  constructor(cert, signatureNameSpaceInfo, canonicalizationMethodInfo,
       signatureMethodInfo) {
     this.signatureNameSpace = signatureNameSpaceInfo
         || "http://www.w3.org/2000/09/xmldsig#";
@@ -11,15 +14,25 @@ module.exports = class SignatureNode {
         || "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256";
 
     this.references = [];
+    this.keyInfoData = createKeyInfo(cert);
   }
 
   addReference(ref, digest) {
     this.references.push([ref, digest]);
   }
 
-  getNode() {
+  async getNode() {
     let signatureValue = "";
+    let domParser = new DOMParser();
+
     // @formatter:off
+    let keyInfoNodeString = createKeyInfoNode(this.keyInfoData.keyId,
+        this.keyInfoData.issuerName, this.keyInfoData.serialNumber);
+
+    let keyNode = domParser.parseFromString(keyInfoNodeString);
+    let keyInfoDigest = await canonicalizeAndHash(keyNode);
+    this.addReference(this.keyInfoData.keyId, keyInfoDigest);
+
     let signatureNodeString =
         `<Signature xmlns="${ this.signatureNameSpace }">` +
           `<SignedInfo>` +
@@ -28,9 +41,11 @@ module.exports = class SignatureNode {
             `${ getReferencesNode(this.references) }` +
           `</SignedInfo>` +
           `<SignatureValue>${ signatureValue }</SignatureValue>` +
+          `${ keyInfoNodeString }` +
         `</Signature>`
     // @formatter:on
-    return new DOMParser().parseFromString(signatureNodeString, "text/xml");
+
+    return domParser.parseFromString(signatureNodeString, "text/xml");
   }
 };
 

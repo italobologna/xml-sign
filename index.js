@@ -1,11 +1,11 @@
 const DOMParser = require('xmldom').DOMParser;
 const XMLSerializer = require('xmldom').XMLSerializer;
 const xpath = require('xpath');
-const canonicalize = require('./src/main/canonicalizer');
-const crypto = require('crypto');
 const SignatureNode = require("./src/main/signaturenode");
+const uuid = require('uuid');
+const canonicalizeAndHash = require('./src/main/canonicalizeandhash');
 
-async function signXml(xml, options) {
+async function signXml(xml, cert, options) {
   try {
 
     // Transform the XMl into a document object
@@ -14,7 +14,7 @@ async function signXml(xml, options) {
     // Node to add the signature information
     const signatureLocation = options.signatureLocation;
     const nodeToAddSignature = xpath.select1(signatureLocation, doc);
-    const signatureNode = new SignatureNode();
+    const signatureNode = new SignatureNode(cert);
 
     // Gets the specified value from the object
     for (const location of options.elementsToSign) {
@@ -25,14 +25,22 @@ async function signXml(xml, options) {
         return;
       }
 
-      let canonicalizedNode = await canonicalize(nodeToSign);
-      let hash = crypto.createHash('SHA256');
-      hash.update(canonicalizedNode);
-      let digest = hash.digest('base64');
-      let reference = location === signatureLocation ? '' : 'xpto'
+      let digest = await canonicalizeAndHash(nodeToSign);
+
+      let reference;
+      let attributeNodeId = nodeToSign.getAttribute('id');
+      if (location === signatureLocation) {
+        reference = '';
+      } else if (attributeNodeId) {
+        reference = attributeNodeId
+      } else {
+        reference = uuid.v4();
+        nodeToSign.setAttribute('id', reference);
+      }
       signatureNode.addReference(reference, digest);
     }
-    nodeToAddSignature.appendChild(signatureNode.getNode())
+
+    nodeToAddSignature.appendChild(await signatureNode.getNode())
     return new XMLSerializer().serializeToString(doc);
   } catch (e) {
     console.error(e);
