@@ -1,40 +1,41 @@
 const DOMParser = require('xmldom').DOMParser;
+const XMLSerializer = require('xmldom').XMLSerializer;
 const xpath = require('xpath');
-const c14n = require("xml-c14n")();
+const canonicalize = require('./src/main/canonicalizer');
+const crypto = require('crypto');
+const SignatureNode = require("./src/main/signaturenode");
 
-function signXml(xml, options, cb) {
+async function signXml(xml, options) {
   try {
 
     // Transform the XMl into a document object
     let doc = new DOMParser().parseFromString(xml);
 
+    // Node to add the signature information
+    const signatureLocation = options.signatureLocation;
+    const nodeToAddSignature = xpath.select1(signatureLocation, doc);
+    const signatureNode = new SignatureNode();
+
     // Gets the specified value from the object
-    // Needs a for loop
-    let toSign = xpath.select1(options.toSign[0], doc);
-    {
-      // toSign element to string
-      console.log(toSign.toString());
+    for (const location of options.elementsToSign) {
+      console.info(`Working on the node: ${ location }`);
+      let nodeToSign = xpath.select1(location, doc);
+      if (!nodeToSign) {
+        console.warn(`Could not find ${ location } to sign on the xml`);
+        return;
+      }
 
-      var canonicaliser = c14n
-          .createCanonicaliser("http://www.w3.org/2001/10/xml-exc-c14n#");
-      // .createCanonicaliser("http://www.w3.org/2001/10/xml-exc-c14n#WithComments");
-      canonicaliser.canonicalise(toSign,
-          function (err, res) {
-            if (err) {
-              console.warn(err.stack);
-              cb(err);
-              return;
-            }
-
-
-
-
-
-            cb(null, res);
-          });
+      let canonicalizedNode = await canonicalize(nodeToSign);
+      let hash = crypto.createHash('SHA256');
+      hash.update(canonicalizedNode);
+      let digest = hash.digest('base64');
+      let reference = location === signatureLocation ? '' : 'xpto'
+      signatureNode.addReference(reference, digest);
     }
+    nodeToAddSignature.appendChild(signatureNode.getNode())
+    return new XMLSerializer().serializeToString(doc);
   } catch (e) {
-    cb(e);
+    console.error(e);
   }
 }
 
