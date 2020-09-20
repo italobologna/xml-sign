@@ -1,11 +1,13 @@
 const DOMParser = require('xmldom').DOMParser;
 const createKeyInfo = require("./createkeyinfo");
+const getPrivateKey = require("./getprivatekey");
 const createKeyInfoNode = require("./keyinfo");
 const canonicalizeAndHash = require("./canonicalizeandhash");
+const canonicalizeAndSign = require("./canonicalizeandsign");
 
 module.exports = class SignatureNode {
-  constructor(cert, signatureNameSpaceInfo, canonicalizationMethodInfo,
-      signatureMethodInfo) {
+  constructor(certPem, keyPem, signatureNameSpaceInfo,
+      canonicalizationMethodInfo, signatureMethodInfo) {
     this.signatureNameSpace = signatureNameSpaceInfo
         || "http://www.w3.org/2000/09/xmldsig#";
     this.canonicalizationMethod = canonicalizationMethodInfo
@@ -14,7 +16,8 @@ module.exports = class SignatureNode {
         || "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256";
 
     this.references = [];
-    this.keyInfoData = createKeyInfo(cert);
+    this.keyInfoData = createKeyInfo(certPem);
+    this.privateKey = getPrivateKey(keyPem);
   }
 
   addReference(ref, digest) {
@@ -22,15 +25,14 @@ module.exports = class SignatureNode {
   }
 
   async getNode() {
-    let signatureValue = "";
     let domParser = new DOMParser();
 
     // @formatter:off
     let keyInfoNodeString = createKeyInfoNode(this.keyInfoData.keyId,
         this.keyInfoData.issuerName, this.keyInfoData.serialNumber);
 
-    let keyNode = domParser.parseFromString(keyInfoNodeString);
-    let keyInfoDigest = await canonicalizeAndHash(keyNode);
+    let keyInfoNode = domParser.parseFromString(keyInfoNodeString);
+    let keyInfoDigest = await canonicalizeAndHash(keyInfoNode);
     this.addReference(this.keyInfoData.keyId, keyInfoDigest);
 
     let signatureNodeString =
@@ -40,12 +42,30 @@ module.exports = class SignatureNode {
             `<SignatureMethod Algorithm="${ this.signatureMethod }"/>` +
             `${ getReferencesNode(this.references) }` +
           `</SignedInfo>` +
-          `<SignatureValue>${ signatureValue }</SignatureValue>` +
-          `${ keyInfoNodeString }` +
+          // `<SignatureValue/>` +
+          // `${ keyInfoNodeString }` +
         `</Signature>`
     // @formatter:on
 
-    return domParser.parseFromString(signatureNodeString, "text/xml");
+    // Generates the signature node
+    let signatureNode = domParser
+        .parseFromString(signatureNodeString,"text/xml");
+
+    // Adds the key info node to the signature
+    let signatureNodeToAddChildren = signatureNode.getElementsByTagName('Signature')[0];
+    signatureNodeToAddChildren.appendChild(keyInfoNode);
+
+    // Signs the SignedInfoNode
+    let signedInfoNode = signatureNode.getElementsByTagName('SignedInfo')[0];
+    let signatureValue = await canonicalizeAndSign(signedInfoNode,
+        this.privateKey);
+
+    let signatureValueElement = signatureNode.createElement('SignatureValue');
+    let signatureValueNode = signatureNode.createTextNode(signatureValue);
+    signatureValueElement.appendChild(signatureValueNode);
+    signatureNodeToAddChildren.appendChild(signatureValueElement);
+
+    return signatureNode;
   }
 };
 

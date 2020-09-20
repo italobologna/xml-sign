@@ -5,16 +5,15 @@ const SignatureNode = require("./src/main/signaturenode");
 const uuid = require('uuid');
 const canonicalizeAndHash = require('./src/main/canonicalizeandhash');
 
-async function signXml(xml, cert, options) {
+async function signXml(xml, certPem, keyPem, options) {
   try {
-
     // Transform the XMl into a document object
     let doc = new DOMParser().parseFromString(xml);
 
     // Node to add the signature information
     const signatureLocation = options.signatureLocation;
     const nodeToAddSignature = xpath.select1(signatureLocation, doc);
-    const signatureNode = new SignatureNode(cert);
+    const signatureNode = new SignatureNode(certPem, keyPem);
 
     // Gets the specified value from the object
     for (const location of options.elementsToSign) {
