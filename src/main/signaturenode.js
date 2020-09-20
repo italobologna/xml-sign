@@ -1,6 +1,6 @@
 const DOMParser = require('xmldom').DOMParser;
 const XMLSerializer = require('xmldom').XMLSerializer;
-const getCertificateData = require("./createkeyinfo");
+const getCertificateData = require("./getcertificatedata");
 const getPrivateKey = require("./getprivatekey");
 const createKeyInfoNode = require("./keyinfo");
 const canonicalizeAndHash = require("./xmlcrypto").canonicalizeAndHash;
