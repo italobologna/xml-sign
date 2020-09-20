@@ -1,6 +1,6 @@
 const pki = require('node-forge').pki;
 
-function createKeyInfo(certPem) {
+function getCertificateData(certPem) {
   const cert = pki.certificateFromPem(certPem);
   const issuerName = cert.subject.attributes
       .map(attr => [attr.shortName, attr.value].join('='))
@@ -16,4 +16,4 @@ function createKeyInfo(certPem) {
   }
 }
 
-module.exports = createKeyInfo;
+module.exports = getCertificateData;

@@ -1,6 +1,6 @@
 const DOMParser = require('xmldom').DOMParser;
 const XMLSerializer = require('xmldom').XMLSerializer;
-const createKeyInfo = require("./createkeyinfo");
+const getCertificateData = require("./createkeyinfo");
 const getPrivateKey = require("./getprivatekey");
 const createKeyInfoNode = require("./keyinfo");
 const canonicalizeAndHash = require("./xmlcrypto").canonicalizeAndHash;
@@ -17,7 +17,7 @@ module.exports = class SignatureNode {
         || "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256";
 
     this.references = [];
-    this.keyInfoData = createKeyInfo(certPem);
+    this.keyInfoData = getCertificateData(certPem);
     this.privateKey = getPrivateKey(keyPem);
   }
 
