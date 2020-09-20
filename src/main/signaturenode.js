@@ -1,9 +1,10 @@
 const DOMParser = require('xmldom').DOMParser;
+const XMLSerializer = require('xmldom').XMLSerializer;
 const createKeyInfo = require("./createkeyinfo");
 const getPrivateKey = require("./getprivatekey");
 const createKeyInfoNode = require("./keyinfo");
-const canonicalizeAndHash = require("./canonicalizeandhash");
-const canonicalizeAndSign = require("./canonicalizeandsign");
+const canonicalizeAndHash = require("./xmlcrypto").canonicalizeAndHash;
+const canonicalizeAndSign = require("./xmlcrypto").canonicalizeAndSign;
 
 module.exports = class SignatureNode {
   constructor(certPem, keyPem, signatureNameSpaceInfo,
@@ -18,6 +19,11 @@ module.exports = class SignatureNode {
     this.references = [];
     this.keyInfoData = createKeyInfo(certPem);
     this.privateKey = getPrivateKey(keyPem);
+  }
+
+  async signNode(ref, node) {
+    let digest = await canonicalizeAndHash(node);
+    this.addReference(ref, digest);
   }
 
   addReference(ref, digest) {

@@ -3,7 +3,7 @@ const XMLSerializer = require('xmldom').XMLSerializer;
 const xpath = require('xpath');
 const SignatureNode = require("./src/main/signaturenode");
 const uuid = require('uuid');
-const canonicalizeAndHash = require('./src/main/canonicalizeandhash');
+const canonicalizeAndHash = require("./src/main/xmlcrypto").canonicalizeAndHash;
 
 async function signXml(xml, certPem, keyPem, options) {
   try {
@@ -24,8 +24,6 @@ async function signXml(xml, certPem, keyPem, options) {
         return;
       }
 
-      let digest = await canonicalizeAndHash(nodeToSign);
-
       let reference;
       let attributeNodeId = nodeToSign.getAttribute('id');
       if (location === signatureLocation) {
@@ -34,9 +32,12 @@ async function signXml(xml, certPem, keyPem, options) {
         reference = attributeNodeId
       } else {
         reference = uuid.v4();
+      }
+
+      await signatureNode.signNode(reference, nodeToSign);
+      if (!nodeToSign.getAttribute('id')) {
         nodeToSign.setAttribute('id', reference);
       }
-      signatureNode.addReference(reference, digest);
     }
 
     nodeToAddSignature.appendChild(await signatureNode.getNode())
