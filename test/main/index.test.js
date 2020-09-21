@@ -5,7 +5,7 @@ describe('Testing', function () {
 
   let xml = fs.readFileSync('./test/resources/pacs008.xml').toString();
   let certPem = fs.readFileSync('./test/resources/cert.pem').toString();
-  let keyPem = fs.readFileSync('./test/resources/key.pem').toString();
+  let keyPem = fs.readFileSync('./test/resources/private-key.pem').toString();
 
   it('Can do things', async function () {
     let res = await signXml(xml, certPem, keyPem, {

@@ -19,6 +19,7 @@ module.exports = class SignatureNode {
     this.references = [];
     this.keyInfoData = getCertificateData(certPem);
     this.privateKey = getPrivateKey(keyPem);
+    this.keyPem = keyPem;
   }
 
   async signNode(ref, node) {
@@ -64,7 +65,7 @@ module.exports = class SignatureNode {
     // Signs the SignedInfoNode
     let signedInfoNode = signatureNode.getElementsByTagName('SignedInfo')[0];
     let signatureValue = await canonicalizeAndSign(signedInfoNode,
-        this.privateKey);
+        this.keyPem);
 
     let signatureValueElement = signatureNode.createElement('SignatureValue');
     let signatureValueNode = signatureNode.createTextNode(signatureValue);
