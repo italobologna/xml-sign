@@ -1,9 +1,9 @@
-const signXml = require('../index').signXml;
+const signXml = require('../../lib/xmlsignature');
 const fs = require('fs');
 
-describe('Index', function () {
+describe('XML Signature', function () {
 
-  let xml = fs.readFileSync('./test/resources/pacs008.xml').toString();
+  let xml = fs.readFileSync('./test/resources/toSign.xml').toString();
   let certPem = fs.readFileSync('./test/resources/cert.pem').toString();
   let keyPem = fs.readFileSync('./test/resources/private-key.pem').toString();
 

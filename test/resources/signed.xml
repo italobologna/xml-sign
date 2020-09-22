@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Envelope xmlns="https://www.bcb.gov.br/pi/pacs.008/1.4">
+  <AppHdr id="28b1259b-7e97-48b3-ad75-87b657a9fa38">
+    <Fr>
+      <FIId>
+        <FinInstnId>
+          <Othr>
+            <Id>00038166</Id>
+          </Othr>
+        </FinInstnId>
+      </FIId>
+    </Fr>
+    <To>
+      <FIId>
+        <FinInstnId>
+          <Othr>
+            <Id>99999010</Id>
+          </Othr>
+        </FinInstnId>
+      </FIId>
+    </To>
+    <BizMsgIdr>M0003816612345678901234567890123</BizMsgIdr>
+    <MsgDefIdr>pacs.008.spi.1.4</MsgDefIdr>
+    <CreDt>2020-01-01T08:30:12.000Z</CreDt>
+    <Sgntr>
+      <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo>
+          <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+          <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+          <Reference URI="28b1259b-7e97-48b3-ad75-87b657a9fa38">
+            <Transforms>
+              <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+            </Transforms>
+            <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <DigestValue>yJt98jvJIgull/ocF69J8Xs+e1D9LyDPO3/L96po2C4=</DigestValue>
+          </Reference>
+          <Reference URI="adaa70af-8333-4040-810f-35b1b921ed69">
+            <Transforms>
+              <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+            </Transforms>
+            <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <DigestValue>v7mV9I8l1OLKPSHAwr0IEVxSwHkuI2w8+BRKVcmSY8s=</DigestValue>
+          </Reference>
+          <Reference URI="6d47973eeda325341810305855d6f96dc373fb4f">
+            <Transforms>
+              <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+            </Transforms>
+            <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+            <DigestValue>7TQmQBF47OvzBkhgiqfygoRhCgElIv5dRfieTVmQ8pU=</DigestValue>
+          </Reference>
+        </SignedInfo>
+        <KeyInfo Id="6d47973eeda325341810305855d6f96dc373fb4f">
+          <X509Data>
+            <X509IssuerSerial>
+              <X509IssuerName>C=BR, ST=SP, L=Sao Paulo, O=UL, OU=UL, CN=SPI - Banco Central do
+                Brasil, E=email@email.com
+              </X509IssuerName>
+              <X509SerialNumber>2904e64229c8ccbea34e723b84026e2c9a0e0ec6</X509SerialNumber>
+            </X509IssuerSerial>
+          </X509Data>
+        </KeyInfo>
+        <SignatureValue>
+          K0TYIiD7pzPZAkkP49ql76PxygCf15mX/lGE7W++30agDLXDmE/chbllXsh8gZoSrd7+Ncll6RfJWXR55GNeZE15TasPrlUjqkJkdf+aXqsc9iYaetpJEi2pq2en9EoDMqNa5FwWYlzJdV+7XUqm7DSKbbnCJOSjZgQYV74dQyqasZzkzaahzcg0bOU8zgWKf9qow/5WqPRQUpNN5XnE2HmOSMXkYbHMk5pvBfkKplBsl1PBCbfj++pp1o2/Cg5X5NDcvtjppL4L+nwYcduYTerxTGrnVvRX+AB2gnZN9j9LVbXSM3o+dRPEUjgMM55MctCGZq5JE65zm94LeXTAkg==
+        </SignatureValue>
+      </Signature>
+    </Sgntr>
+  </AppHdr>
+  <Document id="adaa70af-8333-4040-810f-35b1b921ed69"
+    xmlns="https://www.bcb.gov.br/pi/pacs.008/1.4">
+    <FIToFICstmrCdtTrf>
+      <GrpHdr>
+        <MsgId>M0003816612345678901234567890123</MsgId>
+        <CreDtTm>2020-01-01T08:30:12.000Z</CreDtTm>
+        <NbOfTxs>1</NbOfTxs>
+        <SttlmInf>
+          <SttlmMtd>CLRG</SttlmMtd>
+        </SttlmInf>
+        <PmtTpInf>
+          <InstrPrty>HIGH</InstrPrty>
+        </PmtTpInf>
+      </GrpHdr>
+      <CdtTrfTxInf>
+        <PmtId>
+          <EndToEndId>E9999901012341234123412345678900</EndToEndId>
+          <TxId>90000</TxId>
+        </PmtId>
+        <IntrBkSttlmAmt Ccy="BRL">1000.00</IntrBkSttlmAmt>
+        <AccptncDtTm>2020-01-01T08:30:00.000Z</AccptncDtTm>
+        <ChrgBr>SLEV</ChrgBr>
+        <Dbtr>
+          <Nm>Fulano da Silva</Nm>
+          <Id>
+            <PrvtId>
+              <Othr>
+                <Id>70000000000</Id>
+              </Othr>
+            </PrvtId>
+          </Id>
+        </Dbtr>
+        <DbtrAcct>
+          <Id>
+            <Othr>
+              <Id>500000</Id>
+              <Issr>3000</Issr>
+            </Othr>
+          </Id>
+          <Tp>
+            <Cd>CACC</Cd>
+          </Tp>
+        </DbtrAcct>
+        <DbtrAgt>
+          <FinInstnId>
+            <ClrSysMmbId>
+              <MmbId>10000000</MmbId>
+            </ClrSysMmbId>
+          </FinInstnId>
+        </DbtrAgt>
+        <CdtrAgt>
+          <FinInstnId>
+            <ClrSysMmbId>
+              <MmbId>20000000</MmbId>
+            </ClrSysMmbId>
+          </FinInstnId>
+        </CdtrAgt>
+        <Cdtr>
+          <Id>
+            <PrvtId>
+              <Othr>
+                <Id>80000000000</Id>
+              </Othr>
+            </PrvtId>
+          </Id>
+        </Cdtr>
+        <CdtrAcct>
+          <Id>
+            <Othr>
+              <Id>600000</Id>
+              <Issr>4000</Issr>
+            </Othr>
+          </Id>
+          <Tp>
+            <Cd>SVGS</Cd>
+          </Tp>
+        </CdtrAcct>
+        <RmtInf>
+          <Ustrd>Campo livre [0]</Ustrd>
+        </RmtInf>
+      </CdtTrfTxInf>
+    </FIToFICstmrCdtTrf>
+  </Document>
+</Envelope>
