@@ -3,7 +3,6 @@ const XMLSerializer = require('xmldom').XMLSerializer;
 const xpath = require('xpath');
 const SignatureNode = require("./src/main/signaturenode");
 const uuid = require('uuid');
-const canonicalizeAndHash = require("./src/main/xmlcrypto").canonicalizeAndHash;
 
 async function signXml(xml, certPem, keyPem, options) {
   try {
