@@ -1,4 +1,4 @@
-const keyInfo = require('../../src/main/keyinfo');
+const keyInfo = require('../../lib/keyinfo');
 const assert = require('assert');
 
 describe('key info tag generation tests', function () {

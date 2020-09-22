@@ -1,6 +1,6 @@
 const assert = require('assert');
 const fs = require('fs');
-const createKeyInfo = require("../../src/main/getcertificatedata");
+const createKeyInfo = require("../../lib/getcertificatedata");
 
 describe('test extract information from certificate', function () {
 

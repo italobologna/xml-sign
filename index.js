@@ -1,7 +1,7 @@
 const DOMParser = require('xmldom').DOMParser;
 const XMLSerializer = require('xmldom').XMLSerializer;
 const xpath = require('xpath');
-const SignatureNode = require("./src/main/signaturenode");
+const SignatureNode = require("./lib/signaturenode");
 const uuid = require('uuid');
 
 module.exports.signXml = async function signXml(xml, certPem, keyPem, options) {
