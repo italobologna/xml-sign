@@ -1,7 +1,5 @@
 const DOMParser = require('xmldom').DOMParser;
-const XMLSerializer = require('xmldom').XMLSerializer;
 const getCertificateData = require("./getcertificatedata");
-const getPrivateKey = require("./getprivatekey");
 const createKeyInfoNode = require("./keyinfo");
 const canonicalizeAndHash = require("./xmlcrypto").canonicalizeAndHash;
 const canonicalizeAndSign = require("./xmlcrypto").canonicalizeAndSign;
@@ -18,7 +16,6 @@ module.exports = class SignatureNode {
 
     this.references = [];
     this.keyInfoData = getCertificateData(certPem);
-    this.privateKey = getPrivateKey(keyPem);
     this.keyPem = keyPem;
   }
 
