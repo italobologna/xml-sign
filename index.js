@@ -4,7 +4,7 @@ const xpath = require('xpath');
 const SignatureNode = require("./src/main/signaturenode");
 const uuid = require('uuid');
 
-async function signXml(xml, certPem, keyPem, options) {
+module.exports.signXml = async function signXml(xml, certPem, keyPem, options) {
   try {
     // Transform the XMl into a document object
     let doc = new DOMParser().parseFromString(xml);
@@ -45,5 +45,3 @@ async function signXml(xml, certPem, keyPem, options) {
     console.error(e);
   }
 }
-
-module.exports = signXml;

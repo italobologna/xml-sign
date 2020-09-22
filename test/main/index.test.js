@@ -1,4 +1,4 @@
-const signXml = require('../../index');
+const signXml = require('../../index').signXml;
 const fs = require('fs');
 
 describe('Testing', function () {
