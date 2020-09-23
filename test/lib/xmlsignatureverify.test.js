@@ -1,4 +1,4 @@
-const signXml = require('../../lib/xmlsignature');
+const verify = require('../../lib/xmlsignatureverify');
 const fs = require('fs');
 
 describe('XML Signature Verification', function () {
@@ -9,13 +9,13 @@ describe('XML Signature Verification', function () {
 
   it('Given the method parameters, can sign the XML successfully',
       async function () {
-        let res = await signXml(xml, certPem, keyPem, {
+        let res = await verify(xml, certPem, keyPem, {
           signatureLocation: '//*[local-name(.)=\'Sgntr\']',
           elementsToSign: [
             '//*[local-name(.)=\'AppHdr\']',
             '//*[local-name(.)=\'Document\']'
           ]
         });
-        fs.writeFileSync('./signed.xml', res);
+        console.log(res);
       });
 });
