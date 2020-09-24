@@ -16,6 +16,6 @@ describe('XML Signature', function () {
             '//*[local-name(.)=\'Document\']'
           ]
         });
-        fs.writeFileSync('./signed.xml', res);
+        if (res) fs.writeFileSync('./signed.xml', res);
       });
 });
