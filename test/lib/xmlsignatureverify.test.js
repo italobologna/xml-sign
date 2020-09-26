@@ -1,5 +1,6 @@
 const verify = require('../../lib/xmlsignatureverify');
 const fs = require('fs');
+const assert = require("assert");
 
 describe('XML Signature Verification', function () {
 
@@ -15,7 +16,8 @@ describe('XML Signature Verification', function () {
             '//*[local-name(.)=\'AppHdr\']',
             '//*[local-name(.)=\'Document\']'
           ]
-        });
+        })
+        assert.deepStrictEqual(0, res.length)
         console.log(res);
       });
 });

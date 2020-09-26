@@ -1,6 +1,6 @@
-const SignatureNode = require('../../lib/signaturenode');
 const assert = require("assert");
 const XMLSerializer = require('xmldom').XMLSerializer;
+const SignatureNode = require('../../lib/signaturenode');
 
 describe('Signature Node Tests', function () {
 
