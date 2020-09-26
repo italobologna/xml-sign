@@ -17,7 +17,7 @@ describe('XML Signature Verification', function () {
             '//*[local-name(.)=\'Document\']'
           ]
         })
-        assert.deepStrictEqual(0, res.length)
         console.log(res);
+        assert.deepStrictEqual(0, res.length)
       });
 });
