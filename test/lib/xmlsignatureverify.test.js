@@ -4,7 +4,7 @@ const assert = require("assert");
 
 describe('XML Signature Verification', function () {
 
-  let xml = fs.readFileSync('./test/resources/signed.xml').toString();
+  let xml = fs.readFileSync('./test/resources/signedIso.xml').toString();
   let certPem = fs.readFileSync('./test/resources/cert.pem').toString();
 
   it('Given the method parameters, can sign the XML successfully',

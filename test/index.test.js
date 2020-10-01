@@ -18,7 +18,8 @@ describe('Index Functions', function () {
 
   it('Given the verify iso call, '
       + 'can verify the XML function as ISO20022', async function () {
-    let res = await verifyIso(xml, certPem);
+    let signedIso = fs.readFileSync('./test/resources/signedIso.xml').toString();
+    let res = await verifyIso(signedIso, certPem);
     assert.deepStrictEqual(0, res.length);
   });
 
@@ -32,7 +33,8 @@ describe('Index Functions', function () {
 
   it('Given the verify DICT call, '
       + 'can verify the XML function as DICT specification', async function () {
-    let res = await verifyDict(xml, certPem);
+    let signedDict = fs.readFileSync('./test/resources/signedDict.xml').toString();
+    let res = await verifyDict(signedDict, certPem);
     assert.deepStrictEqual(0, res.length);
   });
 });
