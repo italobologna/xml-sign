@@ -12,9 +12,9 @@ module.exports.signIso = (xml, certPem, keyPem) => signXml(xml, certPem, keyPem,
 });
 module.exports.verifyIso = (xml, certPem) => verifyXml(xml, certPem);
 module.exports.signDict = (xml, certPem, keyPem) => signXml(xml, certPem, keyPem, {
-  signatureLocation: '//*[local-name(.)=\'Sgntr\']',
+  signatureLocation: '/*',
   elementsToSign: [
-    '//*[local-name(.)=\'Document\']'
+    '/*'
   ]
 });
 module.exports.verifyDict = (xml, certPem) => verifyXml(xml, certPem);

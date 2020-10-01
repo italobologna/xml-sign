@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CreateEntryRequest>
+    <Entry>
+        <Key>+5561988880000</Key>
+        <KeyType>PHONE</KeyType>
+        <Account>
+            <Participant>12345678</Participant>
+            <Branch>0001</Branch>
+            <AccountNumber>0007654321</AccountNumber>
+            <AccountType>CACC</AccountType>
+            <OpeningDate>2010-01-10T03:00:00Z</OpeningDate>
+        </Account>
+        <Owner>
+            <Type>NATURAL_PERSON</Type>
+            <TaxIdNumber>11122233300</TaxIdNumber>
+            <Name>João Silva</Name>
+        </Owner>
+    </Entry>
+    <Reason>USER_REQUESTED</Reason>
+    <RequestId>a946d533-7f22-42a5-9a9b-e87cd55c0f4d</RequestId>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><DigestValue>UpvzC0zY0SAw5Aoo3uI//UUbhtQGdnp7tYCoY2sbAVk=</DigestValue></Reference><Reference URI="6d47973eeda325341810305855d6f96dc373fb4f"><Transforms><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/><DigestValue>RGIx8ANv1sfYqhp2/feeKu40qxaNVwKnA15c3/ONnmg=</DigestValue></Reference></SignedInfo><KeyInfo Id="6d47973eeda325341810305855d6f96dc373fb4f"><X509Data><X509IssuerSerial><X509IssuerName>C=BR, ST=SP, L=Sao Paulo, O=UL, OU=UL, CN=SPI - Banco Central do Brasil, E=email@email.com</X509IssuerName><X509SerialNumber>2904e64229c8ccbea34e723b84026e2c9a0e0ec6</X509SerialNumber></X509IssuerSerial></X509Data></KeyInfo><SignatureValue>afN4IwtgW/l+lV4iZ3kn/QNr4ZurTb3IeAAMAYyOwN8yFEoSiQS365+76HjixVs4s61mAMROLhiX05D8bKcDSiWvGeTpfUYecUTaaUulOqDOkECv+ZBgdY2bz8yx7doxBmj5+fGekFNcOPFtwPn5xhdfo7oGqhzHy9D5IAaUa1A7e8+q1RvHRyjUlSXz8IRBeRUqm0QHa1n6TQH6z+dRerobOGjbRVMF68E7PIlLQmd6/uM5PywRADMKwEKq8DuKmsrv8cU98uuxoh7z8u759cgio0Xplxco1Aho/1QngswLMxNbyrFrtAz+YQryKNC/0uLhlH1qBTtDBdTaCYON3Q==</SignatureValue></Signature></CreateEntryRequest>
