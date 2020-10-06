@@ -10,7 +10,7 @@ describe('XML Signature', function () {
 
   it('Given the method parameters, '
       + 'can sign the XML successfully', async function () {
-    let res = await signXml(xml, certPem, keyPem, {
+    const res = await signXml(xml, certPem, keyPem, {
       signatureLocation: '//*[local-name(.)=\'Sgntr\']',
       elementsToSign: [
         '//*[local-name(.)=\'AppHdr\']',
@@ -18,8 +18,9 @@ describe('XML Signature', function () {
       ]
     });
 
-    let expected = fs.readFileSync(
-        './test/resources/expectedSignatureIso.xml').toString();
-    assert.deepStrictEqual(expected, res);
+    let expected = fs
+        .readFileSync('./test/resources/expectedSignatureIso.xml')
+        .toString().replace(/[\r\n]+/g,"\n");
+    assert.deepStrictEqual(res.replace(/[\r\n]+/g,"\n"), expected);
   });
 });
