@@ -1,6 +1,6 @@
 {
   "name": "xml-sign",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Library for signing XML documents.",
   "main": "index.js",
   "scripts": {
