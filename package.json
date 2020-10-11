@@ -4,7 +4,8 @@
   "description": "Library for signing XML documents.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/**/*.js"
+    "test": "mocha test/**/*.js",
+    "publish": "npm publish --access public"
   },
   "repository": {
     "type": "git",
